@@ -49,7 +49,7 @@ namespace
     // Can extend to parse any formulas.
     void parseConstFormula(const DocumentPtr& doc, const CellPtr& cell, std::string& expression)
     {
-        double value = ::atof(expression.c_str());
+        Result value = ::atoll(expression.c_str());
 
         auto formula = std::make_shared<ConstValue>();
 
@@ -106,28 +106,45 @@ namespace
         else
             parseSummaryFormula(doc, cell, formula);
     }
+
+    void checkDocConsistency(const DocumentPtr& doc)
+    {
+        const auto& rawDoc = doc->raw();
+
+        for (const auto& cellIt : rawDoc)
+        {
+            const auto& cell = cellIt.second;
+
+            if (!cell->formula())
+                throw std::invalid_argument("no formula specified for cell: " + cell->name());
+        }
+    }
 }
 
-DocumentPtr TextParser::parse(const std::string& filepath)
+DocumentPtr DocParser::parse(const std::string& filepath)
 {
     std::string   line;
-    std::ifstream myfile(filepath);
+    std::ifstream fileStream(filepath);
 
-    if (!myfile.is_open())
+    if (!fileStream.is_open())
         return nullptr;
 
     try {
         auto doc = std::make_shared<Document>();
 
-        while (getline(myfile, line))
+        while (getline(fileStream, line))
             parseCellFormula(doc, line);
 
-        myfile.close();
+        checkDocConsistency(doc);
 
         return doc;
     }
-    catch (...)
-    {}
+    catch (const std::exception& e)
+    {
+        std::cerr << "Exception on parsing: " << e.what() << std::endl;
+    }
+
+    fileStream.close();
 
     return nullptr;
 }

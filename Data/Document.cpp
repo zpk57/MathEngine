@@ -1,6 +1,5 @@
 
 #include "Document.h"
-#include "IFormula.h"
 #include "Cell.h"
 #include <stdexcept>
 

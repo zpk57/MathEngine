@@ -19,5 +19,3 @@ private:
 	CellPtr			 m_cell;
 	std::atomic_bool m_acquired{ false };
 };
-
-using EdgePtr = std::unique_ptr<Edge>;

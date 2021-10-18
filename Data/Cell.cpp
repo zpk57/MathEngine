@@ -1,5 +1,4 @@
 #include "Cell.h"
-#include "IFormula.h"
 
 
 Cell::Cell(const std::string& name)

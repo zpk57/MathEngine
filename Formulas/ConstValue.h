@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Data/IFormula.h"
+#include "IFormula.h"
 
 // Summary formula, implements summation of child cells.
 class ConstValue : public IFormula

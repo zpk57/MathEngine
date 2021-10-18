@@ -1,5 +1,8 @@
 #include "CalculationContext.h"
 
+#include <stdexcept>
+#include <iostream>
+
 
 class CalculationContext::WorkPoolEvent : public ThreadPool::IThreadEvent
 {
@@ -12,7 +15,14 @@ public:
 
 	void execute() override
 	{
-		m_work(m_context);
+		try
+		{
+			m_work(m_context);
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "Exception on work: " << e.what() << std::endl;
+		}
 
 		m_context.onPoolEventFinish();
 	}

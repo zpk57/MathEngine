@@ -15,7 +15,7 @@ Result Summary::evaluateImpl()
 {
 	auto& items = m_cell->getChildren().raw();
 
-	Result result = 0.0;
+	Result result = 0;
 
 	for (auto& itemIt : items)
 		result += rawEdge(itemIt)->cell()->formula()->getValue();

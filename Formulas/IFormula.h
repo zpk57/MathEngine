@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Definitions.h"
+#include "../Data/Definitions.h"
 
-// Cell formula intarface. Provides base functionality.
+// Formula interface. Provides calculation. No any MT here.
 class IFormula : public std::enable_shared_from_this<IFormula>
 {
 public:

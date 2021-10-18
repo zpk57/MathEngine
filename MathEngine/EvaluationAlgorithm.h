@@ -8,7 +8,11 @@
 class EvaluationAlgorithm
 {
 public:
-	static void evaluateAll(const CalculationContext& context);
+	static void evaluateAllLinear(CalculationContext& context);
 
-	static void evaluateCell(const CalculationContext& context, const CellPtr& cell);
+	static void evaluateCellLinear(CalculationContext& context, const CellPtr& cell);
+
+	static void evaluateAllSplitted(CalculationContext& context);
+
+	static void evaluateCellSplitted(CalculationContext& context, const CellPtr& cell);
 };
